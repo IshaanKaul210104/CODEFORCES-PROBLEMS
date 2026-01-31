@@ -15,5 +15,6 @@ public class Sum {
             }
         }
         sc.close();
+        
     }
 }
