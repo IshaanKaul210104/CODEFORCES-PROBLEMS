@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Vanya_And_Lanterns {
@@ -9,32 +10,14 @@ public class Vanya_And_Lanterns {
         for (int i = 0; i < n; i++) {
             lanterns[i] = sc.nextInt();
         }
-        int left = 1, right = l;
-        while(left <= right){
-            int d = (left + right) / 2;
-            boolean[] canLight = new boolean[l];
-            for(int lantern : lanterns){
-                int start = Math.max(0, lantern - d);
-                int end = Math.min(l - 1, lantern + d);
-                for(int i = start; i <= end; i++){
-                    canLight[i] = true;
-                }
-            }
-            if(allLit(canLight)){
-                right = d;
-            }
-            else{
-                left = d + 1;
-            }
+        Arrays.sort(lanterns);
+        double maxDistance = 0;
+        for(int i = 1;i < n;i++){
+            maxDistance = Math.max(maxDistance, (lanterns[i] - lanterns[i-1]) / 2.0);
         }
-        System.out.println(left);
+        maxDistance = Math.max(maxDistance, lanterns[0]);
+        maxDistance = Math.max(maxDistance, l - lanterns[n-1]);
+        System.out.println(maxDistance);
         sc.close();
-    }
-    
-    public static boolean allLit(boolean[] canLight){
-        for(boolean light : canLight){
-            if(!light) return false;
-        }
-        return true;
     }
 }
